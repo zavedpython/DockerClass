@@ -1,0 +1,35 @@
+In a Dockerfile, both ADD and COPY are used to copy files and directories into a Docker image — but they differ in functionality and use cases.
+
+1. COPY
+Purpose: Simple, transparent file copying.
+Feature	Description -- Copies	Files/directories from source to image
+Source	Must be local
+No Extras	Does not extract archives or fetch URLs
+
+Example:
+COPY ./app /usr/src/app
+📌 Use when you just want to copy files or directories from your build context to the image.
+----------------------------------------------------------------------------------------------
+
+📦 2. ADD
+Purpose: Like COPY but with extra features.
+Feature	Description --File copying	✅ Same as COPY
+Archive extraction	✅ Automatically unpacks .tar, .tar.gz, .tar.bz2, etc.
+Remote URL support	✅ Can fetch files directly from a URL
+Example 1 – Copy and extract:
+ADD archive.tar.gz /app/
+
+✅ This will automatically extract the archive into /app/.
+
+Example 2 – Download from URL:
+ADD https://example.com/file.txt /tmp/
+
+⚠️ Use with caution — downloading via ADD is less transparent than using curl or wget inside a RUN.
+
+🔄 Summary of Differences
+Feature	                COPY	                            ADD
+Copy local files	      ✅ Yes	                          ✅ Yes
+Extract tar archives	  ❌ No	                          ✅ Yes
+Fetch from remote URLs	❌ No	                            ✅ Yes
+Transparency	          ✅ More explicit/safe	            ⚠️ Less explicit, can be confusing
+
