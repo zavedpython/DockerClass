@@ -1,0 +1,48 @@
+# ✅ Base image
+FROM node:18-alpine
+
+# ✅ Metadata
+LABEL maintainer="admin@example.com"
+LABEL version="1.0"
+LABEL description="A sample Node.js app using all Dockerfile instructions"
+
+# ✅ Build-time variable (can be overridden during build)
+ARG APP_VERSION=1.0.0
+
+# ✅ Environment variable (persists in the image)
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# ✅ Create app directory and set as working directory
+WORKDIR /usr/src/app
+
+# ✅ Add package.json and install dependencies
+COPY package*.json ./
+RUN npm install --only=production
+
+# ✅ Add app source code
+COPY . .
+
+# ✅ Add a README file from remote (demonstrates ADD for remote file or archive)
+# ADD https://example.com/readme.txt /usr/src/app/readme.txt
+
+# ✅ Add a tar archive and extract it (demonstrates ADD functionality)
+# ADD mydata.tar.gz /usr/src/app/data/
+
+# ✅ Create a non-root user and switch to it
+RUN addgroup appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+# ✅ Create a mountable volume for persistent data
+VOLUME ["/usr/src/app/data"]
+
+# ✅ Expose application port
+EXPOSE $PORT
+
+# ✅ Define a script to run as the entrypoint (if applicable)
+# ENTRYPOINT usually runs a script to set up env, then calls CMD
+ENTRYPOINT ["node"]
+
+# ✅ Default command to run the app (can be overridden at `docker run`)
+CMD ["app.js"]
+
