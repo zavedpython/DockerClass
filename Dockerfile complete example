@@ -46,3 +46,13 @@ ENTRYPOINT ["node"]
 # ✅ Default command to run the app (can be overridden at `docker run`)
 CMD ["app.js"]
 
+
+#########################
+
+# 🔁 How to Build and Run
+# Build (with optional ARG override)
+# docker build -t my-node-app --build-arg APP_VERSION=2.1.0 .
+
+# Run
+# docker run -p 3000:3000 my-node-app
+
