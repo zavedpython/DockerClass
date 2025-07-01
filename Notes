@@ -1,0 +1,10 @@
+Docker Overlay File System Path (Default)
+# /var/lib/docker/overlay2/
+
+/var/lib/docker/overlay2/abcdef1234567890/
+├── diff/
+├── merged/
+├── work/
+└── lower
+
+You can inspect which directory belongs to which container by running:  docker inspect <container_id> | grep -i merged
