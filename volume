@@ -3,3 +3,41 @@ $ mkfs -t xfs /dev/sdb   # This command is used to format any disk/drive in linu
 $ docker volume create -o device=/dev/<sdb> -o type=xfs <volume-name>
 
 ls /var/lib/docker/volumes/
+
+docker run -d --name=con1 -v mysqlvol:/var/lib/MySQL myimg
+docker run -d --name=con1 -v <volume_name>:<data path inside the docker where data write> <image name>
+
+mount | grep -i <disk/drivename>
+
+docker volume inspect <volumename>
+docker volume prune -a  # To delete all the unused volumes
+docker volume rm <volumename>  # To delete all the external disk volumes
+
+docker run -d --name=con2 -v logs:/kafka/logs -v app:/kafka/app <imagename>  # to map multiple volume with a single container
+
+TO map a single volume with multiple container:
+
+docker run -d --name=ES01 -v index_data:/var/data/index elasticsearch         # this cantainer can write data in shared volume
+docker run -d --name=ES02 -v index_data:/var/data/index elasticsearch        # this cantainer can write data in shared volume
+docker run -d --name=ES03  -v index_data:/var/data/index:ro elasticsearch     # this cantainer can only read data in shared volume
+
+Note:  in cloud external storage az and docker instance az should be same
+
+############################################################################################
+How to install docker in seprate partition/ change the docker document root...
+
+mount /dev/sdb	/srv/docker
+df -h /srv/docker
+
+vi /etc/docker/demon.json
+
+{
+"dataroot": "/srv/docker"
+}
+
+systemctl demon reload
+systemctl restart docker
+docker info | grep -i root # to check docker installation dir
+############################################################################################
+
+
