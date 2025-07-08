@@ -18,8 +18,12 @@ docker run -d --name=con2 -v logs:/kafka/logs -v app:/kafka/app <imagename>  # t
 TO map a single volume with multiple container:
 
 docker run -d --name=ES01 -v index_data:/var/data/index elasticsearch         # this cantainer can write data in shared volume
-docker run -d --name=ES02 -v index_data:/var/data/index elasticsearch        # this cantainer can write data in shared volume
+docker run -d --name=ES02 -v index_data:/var/data/index elasticsearch         # this cantainer can write data in shared volume
 docker run -d --name=ES03  -v index_data:/var/data/index:ro elasticsearch     # this cantainer can only read data in shared volume
+
+TO map a multiple volume with single container:
+docker run -d -name=con1 -v logs:/kafka/logs -v app:/kafka/app nginx
+
 
 Note:  in cloud external storage az and docker instance az should be same
 
