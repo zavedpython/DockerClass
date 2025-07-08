@@ -52,4 +52,9 @@ systemctl restart docker
 docker info | grep -i root # to check docker installation dir
 ############################################################################################
 
+Copy file from docker to host machine 
+docker cp <con1>:<container file path> <base machine path>
+docker cp <source> <destination>
+
+
 
