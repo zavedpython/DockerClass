@@ -23,6 +23,14 @@ docker run -d --name=ES03  -v index_data:/var/data/index:ro elasticsearch     # 
 
 Note:  in cloud external storage az and docker instance az should be same
 
+
+HOST Path
+mount /dev/sdb/db
+-v /db:/var/lib/MySQL
+
+Native Path:
+-v <vol name>:/var/lib/MySQL
+
 ############################################################################################
 How to install docker in seprate partition/ change the docker document root...
 
