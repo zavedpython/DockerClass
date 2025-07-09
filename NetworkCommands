@@ -1,0 +1,42 @@
+docker network ls
+docker network inspect bridge | grep -i subnet
+
+## custom Bridge ##
+Note: we can connect multiple bridge with single container..
+
+$ docker network create --subnet 192.168.2.0/24 --driver bridge <NetworkName e.g frontend>  # This is to create custome bridge network
+$ docker network create --subnet 192.168.3.0/24 --driver bridge <NetworkName e.g backend>  # This is to create custome bridge network
+$ docker run -d -it --name=db --network backend <imagename>                       # to run container with custom network
+$ docker run -d -it --name=db --network frontend <imagename>                      # to run container with custom network
+
+$ docker run -d -it --name=app --network backend --network frontend <imagename>    #  multiple bridge with single container..
+
+$ docker network disconnect frontend <container name>      # This is disconenct any network from container at runtime
+$ docker network connect frontend <container name>        # This is conenct any network from container at runtime
+
+$ docker network rm <networkName>     # To delete the network
+
+----------------------------------------------
+
+Expose container for the external network using port farwarding
+
+$ netstat -tunlp   # to check used ports
+$ netstat -tunlp | grep -w 8080   # to check ports 8080 is used or free 
+
+you need below ports for port forwarding
+
+docker host port		      # you can decide this port as per your own which is free port.
+container service port		# this port is container running service port
+
+$ docker run -d --name=con1 -p 8080:3306 <img name>                     # now you can access this container on 8080 port from outside container network i mean from docker host or other 
+$ docker run -d -p 8080:8080 -p 5000:5000 --name=jankins <img name>      # Multiple ports also can forward /expose
+
+## all these above are the static port forwarding ##
+
+Dynami Port forwardin...  ## here you do not have to decide docker host port to bind with container service port... dynamicly free port will assign with container service port
+
+$ docker run -d -P --name=jankins <img name>   # capital P work here
+
+
+
+
