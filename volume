@@ -47,7 +47,7 @@ vi /etc/docker/demon.json
 "dataroot": "/srv/docker"
 }
 
-systemctl demon reload
+systemctl daemon-reload
 systemctl restart docker
 docker info | grep -i root # to check docker installation dir
 ############################################################################################
