@@ -41,7 +41,7 @@ How to install docker in seprate partition/ change the docker document root...
 mount /dev/sdb	/srv/docker
 df -h /srv/docker
 
-vi /etc/docker/demon.json
+vi /etc/docker/daemon.json
 
 {
 "dataroot": "/srv/docker"
