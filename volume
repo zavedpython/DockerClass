@@ -44,7 +44,7 @@ df -h /srv/docker
 vi /etc/docker/daemon.json
 
 {
-"dataroot": "/srv/docker"
+"data-root": "/srv/docker"
 }
 
 systemctl daemon-reload
