@@ -1,3 +1,10 @@
+Bridge network
+Host network
+macvlan network
+ipvlan network
+none network
+
+
 docker network ls
 docker network inspect bridge | grep -i subnet
 
@@ -37,6 +44,48 @@ Dynami Port forwardin...  ## here you do not have to decide docker host port to 
 
 $ docker run -d -P --name=jankins <img name>   # capital P work here
 
+-------------------------------------------------------------------
 
+Host network
+
+docker run -itd --name=con1 --network host <img_name>  # using this host ip and Eth will map on container...
+
+----------------------------------------------------------------------------------------
+MACVLAN
+Each container appears directly on the physical network. Good for legacy applications that require direct LAN access.
+Use Case: Containers need their own MAC addresses (appear as separate hosts).
+
+docker network create -d macvlan \
+  --subnet=192.168.1.0/24 \
+  --gateway=192.168.1.1 \
+  -o parent=eth0 macvlan-net
+
+docker run -d --name=con2 --ip 192.168.1.22 --network macvlan50 nginx
+docker run -d --name=web2 --network macvlan-net --ip 172.27.217.218 nginx
+---------------------------------------------------------------------------------------
+
+IPVLAN
+
+Use Case: Similar to macvlan but uses IP-level isolation instead of MAC.
+
+docker network create -d ipvlan \
+  --subnet=192.168.1.0/24 \
+  --gateway=192.168.1.1 \
+  -o parent=eth0 ipvlan-net
+
+------------------------------------------------------
+None Network
+
+docker run --rm -it --network none alpine sh
+
+The none network driver disables all networking for the container. This means the container:
+Has no access to external networks (like the internet).
+Cannot communicate with other containers.
+Is fully isolated at the network level.
+
+✅ Use Cases
+Security-sensitive tasks (e.g., cryptographic operations or data transformations).
+Testing applications in fully isolated environments.
+Air-gapped simulations.
 
 
