@@ -12,23 +12,37 @@ Values can be strings, numbers, lists, or maps.
 name: Varun
 age: 30
 
-3- Lists
+
+
+1- Strings
+ key: value
+ 
+Please note Quoting is optional unless special characters or spaces are involved.
+example
+name: "John Doe"
+greeting: 'Hello, world!'
+message: Welcome  # No quotes needed here
+
+
+
+2- Lists
 Use - followed by a space.
 skills:
   - Java
   - Docker
   - Kubernetes
 
-4- Nested Dictionaries (Maps)
+3- Nested Dictionaries (Maps)
+key:
+  - value1
+  - value2
+  - value3
+
 database:
   host: localhost
   port: 5432
+  service: web
 
-5- Strings
-Quoting is optional unless special characters or spaces are involved.
-name: "John Doe"
-greeting: 'Hello, world!'
-message: Welcome  # No quotes needed here
 
 6- Multiline Strings
 Use | for literal blocks (preserves line breaks).
