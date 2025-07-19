@@ -1,0 +1,89 @@
+YAML Syntax Rules
+
+1- Indentation
+Use spaces only (no tabs).
+Default indentation is 2 spaces per level (can be 2 or 4, but be consistent).
+parent:
+  child: value
+
+2- Key-Value Pairs
+Use key: value format.
+Values can be strings, numbers, lists, or maps.
+name: Varun
+age: 30
+
+3- Lists
+Use - followed by a space.
+skills:
+  - Java
+  - Docker
+  - Kubernetes
+
+4- Nested Dictionaries (Maps)
+database:
+  host: localhost
+  port: 5432
+
+5- Strings
+Quoting is optional unless special characters or spaces are involved.
+name: "John Doe"
+greeting: 'Hello, world!'
+message: Welcome  # No quotes needed here
+
+6- Multiline Strings
+Use | for literal blocks (preserves line breaks).
+Use > for folded blocks (newlines become spaces).
+literal: |
+  Line 1
+  Line 2
+folded: >
+  This will be
+  folded into a single line.
+  
+7- Boolean and Null Values
+active: true
+deleted: false
+description: null
+
+8- Comments
+Use # for comments.
+# This is a comment
+port: 8080  # Inline comment
+---------------------------------------------------------------------------
+📌 Best Practices
+
+Consistent Indentation
+  Choose 2 or 4 spaces and use them throughout. Never mix tabs and spaces.
+Avoid Complex Structures When Possible
+  Flatten structures unless nested data is truly needed.
+  
+Anchor and Alias (Advanced Use)
+defaults: &defaults
+  timeout: 30
+  retries: 3
+
+prod:
+  <<: *defaults
+  timeout: 60  # Overrides default
+Use Descriptive Keys
+
+Avoid vague keys like a, val, etc.
+user_name: johndoe
+Validate YAML Files
+Use online tools (like YAML Lint) or CLI tools (yamllint, pyyaml) to check for errors.
+
+Avoid Duplicate Keys
+Duplicate keys in the same level are invalid and may be ignored silently.
+key: value1
+key: value2  # ❌ Only value2 is kept, value1 is lost
+
+Use --- for Document Separation
+Especially useful in multi-document files (like Kubernetes YAMLs).
+---
+apiVersion: v1
+kind: Pod
+...
+---
+apiVersion: v1
+kind: Service
+...
