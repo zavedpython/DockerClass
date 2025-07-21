@@ -2,9 +2,45 @@
 2  Harbor Registry
 Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted.
 
-SelfSigned Cert :
+
+
+
+To generate a self-signed TLS certificate for your private Docker registry, follow these steps:
+mkdir -p /certs
+cd /certs
+
+openssl req -newkey rsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 365 -out domain.crt
+
+OR 
+
 openssl req -newkey rsa:4096 -nodes -sha256 \
   -keyout domain.key \
   -addext "subjectAltName = DNS:dockerlab.example.com" \
   -x509 -days 365 \
   -out domain.crt
+----------------------------------------------
+Docker Registry Run Command (Example)
+
+docker run -d --restart=always \
+  --name=registry \
+  -v /certs/:/certs \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+  -p 443:443 \
+  registry:latest
+
+OR 
+
+docker run -d --restart=always --name registry \
+  -v /certs:/certs \
+  -v /registry-data:/var/lib/registry \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+  -p 443:443 \
+  registry:2
+
+
+Access & Test:
+curl -k https://registry.example.com/v2/_catalog
+
+
