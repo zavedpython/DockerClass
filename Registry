@@ -1,0 +1,10 @@
+1   docker distribution | (GUI not available only CUI)
+2  Harbor Registry
+Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted.
+
+SelfSigned Cert :
+openssl req -newkey rsa:4096 -nodes -sha256 \
+  -keyout domain.key \
+  -addext "subjectAltName = DNS:dockerlab.example.com" \
+  -x509 -days 365 \
+  -out domain.crt
