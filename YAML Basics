@@ -1,0 +1,74 @@
+🟩 1. Strings
+YAML supports plain and quoted strings.
+
+# Plain string
+name: John Doe
+
+# Single-quoted string (no escaping needed)
+message: 'Hello, world!'
+
+# Double-quoted string (supports escape sequences like \n)
+greeting: "Hello\nWorld"
+
+# Multiline string using block scalars
+description: |
+  This is a multiline
+  string that preserves
+  line breaks.
+
+note: >
+  This is also a multiline
+  string, but line breaks
+  are folded into spaces.
+
+
+🟦 2. Lists (Sequences)
+Inline List:
+
+fruits: [apple, banana, cherry]
+Block List:
+
+fruits:
+  - apple
+  - banana
+  - cherry
+
+Lists can contain other lists or mappings too:
+shopping:
+  - item: Milk
+    quantity: 2
+  - item: Bread
+    quantity: 1
+🟨 3. Mappings (Dictionaries / Key-Value Pairs)
+Basic Mapping:
+person:
+  name: Alice
+  age: 30
+  city: New York
+
+
+Inline Mapping:
+person: {name: Alice, age: 30, city: New York}
+
+
+Nested Mapping:
+employee:
+  name: Bob
+  contact:
+    email: bob@example.com
+    phone: 1234567890
+
+
+✅ Combined Example
+
+title: "Bookstore"
+
+books:
+  - title: "1984"
+    author: "George Orwell"
+    genres: [Dystopian, Political Fiction]
+  - title: "To Kill a Mockingbird"
+    author: "Harper Lee"
+    genres:
+      - Fiction
+      - Classic
