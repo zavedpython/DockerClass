@@ -12,6 +12,8 @@ vi /etc/docker/demon.json      # this is to allow communication between registry
   "insecure-registries" : ["<RegistryServerIp/DNS>:Port"]
 }
 
+systemctl demon-reload
+
 
 
 
