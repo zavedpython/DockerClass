@@ -13,6 +13,7 @@ vi /etc/docker/demon.json      # this is to allow communication between registry
 }
 
 systemctl demon-reload
+system restart docker
 
 
 
